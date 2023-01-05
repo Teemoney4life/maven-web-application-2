@@ -1,0 +1,38 @@
+node{
+   def mavenHome = tool name: 'maven_3.8.6'
+   stage('1cloneCode'){
+       git "https://github.com/Teemoney4life/maven-web-application-2.git"
+      }
+      stage('2Test&Build'){
+      sh "${mavenHome}/bin/mvn clean package"
+      }
+      /*
+      stage('3CodeQuality'){
+       sh "${mavenHome}/bin/mvn sonar:sonar"
+      }
+      stage('4UploadArtifacts'){
+       sh "${mavenHome}/bin/mvn deploy"
+      }
+      stage('5deploy2UAT'){
+      sh "echo 'deploy to UAT'"
+      deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://174.129.59.21:8080/')], contextPath: null, war: 'target/*war'
+     } 
+       stage('6approvalGate'){
+      sh "echo 'ready for review'"
+      timeout(time:5, unit:'DAYS'){
+      input message: 'Application ready for deployment, Please review and approve'
+          }
+      }
+      stage('7deployProd'){
+      sh "echo 'deploy to UAT'"
+      deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://174.129.59.21:8080/')], contextPath: null, war: 'target/*war'
+     }
+      stage('8emailNotification'){
+          emailext body: '''Hi All,
+
+       Checks build status.
+
+      Landmark Technologies''', recipientProviders: [buildUser(), developers(), upstreamDevelopers(), brokenBuildSuspects(), brokenTestsSuspects(), contributor()], subject: 'Build Status', to: 'taiwobolajihassan2@gmail.com'
+      }
+      */
+     } 
